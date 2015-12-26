@@ -13,7 +13,7 @@ var token = 'YOUR_SHOUTPOINT_API_KEY';
 var client = shoutapi(token).client;
 
 // Output available phone numbers.
-client.available({}, console.log);
+client.numbers.available({}, console.log);
 
 ```
 
