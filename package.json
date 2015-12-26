@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@git.null.pub:2222/brandon/shoutapi.git"
+    "url": "https://github.com/baetheus/shoutapi.git"
   },
   "keywords": [
     "shoutpoint",
@@ -19,6 +19,6 @@
   "dependencies": {
     "bunyan": "^1.5.1",
     "lodash": "^3.10.1",
-    "request": "^2.67.0",
+    "request": "^2.67.0"
   }
 }
