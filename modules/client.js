@@ -154,5 +154,42 @@ module.exports = function apiClient(token) {
     ctt: cttDials
   };
 
+  // LiveIVRs API
+  function getIVR(number, callback) {
+    var params = {
+      url: buildUrl('LiveIVRs/Callbacks' + number),
+    };
+    apiGet(params, callback);
+  }
+
+  function listIVR(callback) {
+    var params = {
+      url: buildUrl('LiveIVRs/Callbacks'),
+    };
+    apiGet(params, callback);
+  }
+
+  function configIVR(body, callback) {
+    var params = {
+      url: buildUrl('LiveIVRs/Callbacks'),
+      body: body
+    };
+    apiPost(params, callback);
+  }
+
+  function removeIVR(callback) {
+    var params = {
+      url: buildUrl('LiveIVRs/Callbacks'),
+    };
+    apiDelete(params, callback);
+  }
+
+  that.ivrs = {
+    get: getIVR,
+    list: listIVR,
+    config: configIVR,
+    remove: removeIVR
+  };
+
   return that;
 };
