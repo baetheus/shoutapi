@@ -24,7 +24,7 @@ client.available({}, console.log);
 The shoutapi.server object is an event emitter that provides a restify-type route. This route accepts [callback style](https://dev-shoutpointapi.devportal.apigee.com/docs/apis/live-ivrs) messages and emits events for type, status, and regex entries for to_no, from_no, and app_id. Since many events can be emitted for the same message, care should be taken not to duplicate responses.
 
 ```js
-var shout = require('shoutapi').server,
+var shout = require('shoutapi')('YOUR_SHOUTPOINT_API_KEY').server,
     restify = require('restify'),
     server = restify.createServer();
 
