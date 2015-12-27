@@ -91,12 +91,12 @@ module.exports = function apiServer() {
         lodash.forEach(regexApp, onAppRoute);
       }
 
-      // Emit regex app matches
+      // Emit regex to matches
       if (message.to_no) {
         lodash.forEach(regexTo, onToRoute);
       }
 
-      // Emit regex app matches
+      // Emit regex from matches
       if (message.from_no) {
         lodash.forEach(regexFrom, onFromRoute);
       }

@@ -1,3 +1,5 @@
+# shoutapi
+
 Node.js module to interact with official [Shoutpoint Api](https://dev-shoutpointapi.devportal.apigee.com)
 
 ```sh
@@ -5,7 +7,7 @@ npm install shoutapi
 ```
 
 ## Client
-The shoutapi.client object contains methods for direct use with the Shoutpoint apis: Dials, LiveCalls, LiveIVRs, and PhoneNumbers. Currently, only the PhoneNumbers and parts of the Dials apis have been implemented.
+The shoutapi.client object contains methods for direct use with the Shoutpoint apis: Dials, LiveCalls, LiveIVRs, and PhoneNumbers. Currently, only parts of the PhoneNumbers, Dials, and LiveIVRs apis have been implemented..
 
 ```js
 var shoutapi = require('shoutapi');
@@ -25,7 +27,7 @@ List numbers attached to api.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| api | <code>String</code> | API to list. ex. LiveIVRs, ParkingLot |
+| api | <code>String</code> | API name. ex. Dials, LiveCalls, LiveIVRs, PhoneNumbers. |
 | callback | <code>Function</code> | Callback function will receive error, response. |
 
 ### client.numbers.available(opts, callback)
@@ -41,7 +43,7 @@ Assign a number to an inbound api.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| api | <code>String</code> | API to list. ex. LiveIVRs, ParkingLot |
+| api | <code>String</code> | API name. ex. Dials, LiveCalls, LiveIVRs, PhoneNumbers. |
 | numbers | <code>String</code> &#124; <code>Array</code> | A phone number presented as a string or an array of numbers presented as strings. |
 | callback | <code>Function</code> | Callback function will receive error, response. |
 
@@ -53,13 +55,67 @@ Park unassigned numbers for later use.
 | numbers | <code>String</code> &#124; <code>Array</code> | A phone number presented as a string or an array of numbers presented as strings. |
 | callback | <code>Function</code> | Callback function will receive error, response. |
 
-### client.numbers.release(numbers, callback)
+### client.numbers.release(api, numbers, callback)
 Release numbers from an inbound api.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| api | <code>String</code> | API to list. ex. LiveIVRs, ParkingLot |
+| api | <code>String</code> | API name. ex. Dials, LiveCalls, LiveIVRs, PhoneNumbers. |
 | numbers | <code>String</code> &#124; <code>Array</code> | A phone number presented as a string or an array of numbers presented as strings. |
+| callback | <code>Function</code> | Callback function will receive error, response. |
+
+### client.dials.connect(body, callback)
+Dial a phone number.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| body | <code>Object</code> | A JSON object of the following form found [here](https://dev-shoutpointapi.devportal.apigee.com/dials-api/apis/post/Connect). |
+| callback | <code>Function</code> | Callback function will receive error, response. |
+
+### client.dials.sms(body, callback)
+Send an sms message.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| body | <code>Object</code> | A JSON object of the following form found [here](https://dev-shoutpointapi.devportal.apigee.com/docs/apis/dials/sms). |
+| callback | <code>Function</code> | Callback function will receive error, response. |
+
+### client.dials.ctt(body, callback)
+Initiate a ClickToTalk Call.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| body | <code>Object</code> | A JSON object of the following form found [here](https://dev-shoutpointapi.devportal.apigee.com/dials-api/apis/post/ClickToTalk). |
+| callback | <code>Function</code> | Callback function will receive error, response. |
+
+### client.ivrs.get(number, callback)
+Get the callback configuration for a specific IVR number.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| number | <code>String</code> | A phone number presented as a string. |
+| callback | <code>Function</code> | Callback function will receive error, response. |
+
+### client.ivrs.list(callback)
+Get the callback configuration for all configured numbers.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| callback | <code>Function</code> | Callback function will receive error, response. |
+
+### client.ivrs.config(body, callback)
+Configure any number of callbacks for inbound numbers.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| body | <code>Object</code> | A JSON object of the following form found [here](https://dev-shoutpointapi.devportal.apigee.com/liveivrs-api/apis/post/PhoneNumbers). |
+| callback | <code>Function</code> | Callback function will receive error, response. |
+
+### client.ivrs.list(callback)
+Remove all callback configurations for IVRs.
+
+| Param | Type | Description |
+| --- | --- | --- |
 | callback | <code>Function</code> | Callback function will receive error, response. |
 
 ## Events

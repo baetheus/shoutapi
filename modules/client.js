@@ -29,41 +29,13 @@ module.exports = function apiClient(token) {
 
   assert.equal(typeof token, 'string');
 
-  // Private Functions
+  // Helper functions
   function buildUrl(path) {
     return url.format({
       protocol: 'https',
       host: 'api.shoutpoint.com',
       pathname: sprintf('/%s/%s', api.ver, path)
     });
-  }
-
-  function apiCall(params, callback) {
-    params.json = true;
-    params.headers = {
-      'X-API-Key': token
-    };
-    log.debug({params: params}, 'Attempting api.');
-    request(params, function apiResponse(err, res, body) {
-      log.trace({res: res}, 'Api Response.');
-      log.debug({err: err, params: params}, 'Completed api post.');
-      callback(err, body);
-    });
-  }
-
-  function apiGet(params, callback) {
-    params.method = 'GET';
-    apiCall(params, callback);
-  }
-
-  function apiPost(params, callback) {
-    params.method = 'POST';
-    apiCall(params, callback);
-  }
-
-  function apiDelete(params, callback) {
-    params.method = 'DELETE';
-    apiCall(params, callback);
   }
 
   function strToAr(obj) {
@@ -78,7 +50,33 @@ module.exports = function apiClient(token) {
     return result;
   }
 
-  // PhoneNumbers API
+  // General API functions
+  function apiCall(params, callback) {
+    params.json = true;
+    params.headers = {
+      'X-API-Key': token
+    };
+    log.debug({params: params}, 'Attempting api call.');
+    request(params, function apiResponse(err, res, body) {
+      log.trace({res: res}, 'Api Response.');
+      log.debug({err: err, params: params}, 'Completed api post.');
+      callback(err, body);
+    });
+  }
+  function apiGet(params, callback) {
+    params.method = 'GET';
+    apiCall(params, callback);
+  }
+  function apiPost(params, callback) {
+    params.method = 'POST';
+    apiCall(params, callback);
+  }
+  function apiDelete(params, callback) {
+    params.method = 'DELETE';
+    apiCall(params, callback);
+  }
+
+  // PhoneNumbers API functions
   function generalListNumbers(api, opts, callback) {
     var params = {
       qs: opts,
@@ -95,7 +93,7 @@ module.exports = function apiClient(token) {
     generalListNumbers('Available', opts, callback);
   }
 
-  function provisionNumber(api, numbers, callback) {
+  function provisionNumbers(api, numbers, callback) {
     var params = {
       url: buildUrl('PhoneNumbers/' + api),
       body: strToAr(numbers)
@@ -103,11 +101,11 @@ module.exports = function apiClient(token) {
     apiPost(params, callback);
   }
 
-  function parkNumber(numbers, callback) {
-    provisionNumber('ParkingLot', numbers, callback);
+  function parkNumbers(numbers, callback) {
+    provisionNumbers('ParkingLot', numbers, callback);
   }
 
-  function releaseNumber(api, numbers, callback) {
+  function releaseNumbers(api, numbers, callback) {
     var params = {
       url: buildUrl('PhoneNumbers/' + api),
       body: strToAr(numbers)
@@ -118,23 +116,23 @@ module.exports = function apiClient(token) {
   that.numbers = {
     list: listNumbers,
     available: availableNumbers,
-    assign: provisionNumber,
-    park: parkNumber,
-    release: releaseNumber
+    assign: provisionNumbers,
+    park: parkNumbers,
+    release: releaseNumbers
   };
 
   // Dials API
-  function smsDials(body, callback) {
+  function connectDials(body, callback) {
     var params = {
-      url: buildUrl('Dials/SMS'),
+      url: buildUrl('Dials/Connect'),
       body: body
     };
     apiPost(params, callback);
   }
 
-  function connectDials(body, callback) {
+  function smsDials(body, callback) {
     var params = {
-      url: buildUrl('Dials/Connect'),
+      url: buildUrl('Dials/SMS'),
       body: body
     };
     apiPost(params, callback);
