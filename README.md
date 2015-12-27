@@ -121,8 +121,12 @@ Remove all callback configurations for IVRs.
 ## Events
 The shoutapi.server object is an event emitter that provides a restify-type route. This route accepts [callback style](https://dev-shoutpointapi.devportal.apigee.com/docs/apis/live-ivrs) messages and emits events for type, status, and regex entries for to_no, from_no, and app_id. Since many events can be emitted for the same message, care should be taken not to duplicate responses.
 
+```sh
+npm install shoutapi restify
+```
+
 ```js
-var shout = require('shoutapi')('YOUR_SHOUTPOINT_API_KEY').server,
+var shout = require('shoutapi')('k37j6AHHMZRklQuTfD8JlAgu3aPEtaqS').server,
     restify = require('restify'),
     server = restify.createServer();
 
@@ -130,21 +134,35 @@ var shout = require('shoutapi')('YOUR_SHOUTPOINT_API_KEY').server,
 server.use(restify.bodyParser({ mapParams: false }));
 server.post('/', shout.route);
 
-// Create listener on 'sms' event
-shout.on('sms', function (data) {
-  console.log('Received sms:', data.message);
-  data.res.send(200);
+// Create a listener for 'init_call' type.
+shout.on('init_call', function (data) {
+  console.log('A call has been initialized.', data.message);
+
+  var actions = [
+    {
+      type: 'SAY',
+      params: {
+        text: 'You have reached your destination. Here is a text message.',
+      }
+    },
+    {
+      type: 'SMS',
+      params: {
+        no: data.message.from_no,
+        caller_id_no: data.message.to_no,
+        message: 'Wherein I send you a text message.'
+      }
+    },
+    {
+      type: 'HANGUP'
+    }
+  ];
+
+  data.res.send({actions: actions});
   data.next();
 });
 
-// Create regex listener for 'to' number
-shout.onTo(/^1949/, function (data) {
-  console.log('Received message to a number starting with 1949:', data.message);
-  data.res.send(200);
-  data.next();
-});
-
-server.listen(8080, function() {
+server.listen(80, function() {
   console.log('%s listening at %s', server.name, server.url);
 });
 
