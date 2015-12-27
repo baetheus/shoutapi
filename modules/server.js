@@ -73,16 +73,18 @@ module.exports = function apiServer() {
     }
 
     if (message !== 'undefined') {
-      log.trace({message: message}, 'Emitting message.');
+      log.debug('Emitting message.');
       that.emit('message', output);
       
       // Emit type
       if (lodash.includes(messageTypes, message.type)) {
+        log.debug({type: message.type}, 'Emitting type.');
         that.emit(message.type, output);
       }
 
       // Emit status
       if (lodash.includes(statusTypes, message.status)) {
+        log.debug({type: message.status}, 'Emitting status.');
         that.emit(message.status, output);
       }
 
