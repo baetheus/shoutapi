@@ -2,7 +2,7 @@
 /*jslint white: true */
 'use strict';
 
-var shout = require('shoutapi')('k37j6AHHMZRklQuTfD8JlAgu3aPEtaqS').server,
+var shout = require('shoutapi')('YOUR-SHOUTPOINT-API-KEY').server,
     restify = require('restify'),
     server = restify.createServer();
 
