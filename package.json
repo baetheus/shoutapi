@@ -1,6 +1,6 @@
 {
   "name": "shoutapi",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A library for v0 of the shoutpoint developer api written for nodejs.",
   "main": "shoutapi.js",
   "scripts": {
