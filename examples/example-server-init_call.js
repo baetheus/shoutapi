@@ -18,7 +18,7 @@ shout.on('init_call', function (data) {
     {
       type: 'SAY',
       params: {
-        text: 'You have reached shout dot null dot pub. Here is a text message.',
+        text: 'You have reached your destination. Here is a text message.',
       }
     },
     {
@@ -34,7 +34,7 @@ shout.on('init_call', function (data) {
     }
   ];
 
-  data.res.send(actions);
+  data.res.send({actions: actions});
   data.next();
 });
 
