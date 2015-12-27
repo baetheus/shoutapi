@@ -54,14 +54,24 @@ module.exports = function apiServer() {
           next: next
         };
 
-    function regexRoute(regRoute) {
-      var match = regRoute.regexp.exec(message.text);
+    // Regex route parsing.
+    function regexRoute(type, regRoute) {
+      var match = regRoute.regexp.exec(message[type]);
       if (match) {
         log.debug(regRoute, 'Emitting regex route.');
         regRoute.callback(output, match);
       }
     }
-    
+    function onAppRoute(regRoute) {
+      regexRoute('app_id', regRoute);
+    }
+    function onToRoute(regRoute) {
+      regexRoute('to_no', regRoute);
+    }
+    function onFromRoute(regRoute) {
+      regexRoute('from_no', regRoute);
+    }
+
     if (message !== 'undefined') {
       log.trace({message: message}, 'Emitting message.');
       that.emit('message', output);
@@ -78,17 +88,17 @@ module.exports = function apiServer() {
 
       // Emit regex app matches
       if (message.app_id) {
-        lodash.forEach(regexApp, regexRoute);
+        lodash.forEach(regexApp, onAppRoute);
       }
 
       // Emit regex app matches
       if (message.to_no) {
-        lodash.forEach(regexTo, regexRoute);
+        lodash.forEach(regexTo, onToRoute);
       }
 
       // Emit regex app matches
       if (message.from_no) {
-        lodash.forEach(regexFrom, regexRoute);
+        lodash.forEach(regexFrom, onFromRoute);
       }
 
     }
