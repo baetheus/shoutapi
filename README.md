@@ -20,7 +20,7 @@ client.available({search_by: 'area-code', search_on: '949'}, console.log);
 
 ```
 
-### shoutapi.numbers.list(api, callback)
+### client.numbers.list(api, callback)
 List numbers attached to api.
 
 | Param | Type | Description |
@@ -28,7 +28,7 @@ List numbers attached to api.
 | api | <code>String</code> | API to list. ex. LiveIVRs, ParkingLot |
 | callback | <code>Function</code> | Callback function will receive error, response. |
 
-### shoutapi.numbers.available(opts, callback)
+### client.numbers.available(opts, callback)
 List numbers that are available for use.
 
 | Param | Type | Description |
@@ -36,7 +36,7 @@ List numbers that are available for use.
 | opts | <code>Object</code> | Acceptable options are search_by and search_on. |
 | callback | <code>Function</code> | Callback function will receive error, response. |
 
-### shoutapi.numbers.assign(api, numbers, callback)
+### client.numbers.assign(api, numbers, callback)
 Assign a number to an inbound api.
 
 | Param | Type | Description |
@@ -45,7 +45,7 @@ Assign a number to an inbound api.
 | numbers | <code>String</code> &#124; <code>Array</code> | A phone number presented as a string or an array of numbers presented as strings. |
 | callback | <code>Function</code> | Callback function will receive error, response. |
 
-### shoutapi.numbers.park(numbers, callback)
+### client.numbers.park(numbers, callback)
 Park unassigned numbers for later use.
 
 | Param | Type | Description |
@@ -53,7 +53,7 @@ Park unassigned numbers for later use.
 | numbers | <code>String</code> &#124; <code>Array</code> | A phone number presented as a string or an array of numbers presented as strings. |
 | callback | <code>Function</code> | Callback function will receive error, response. |
 
-### shoutapi.numbers.release(numbers, callback)
+### client.numbers.release(numbers, callback)
 Release numbers from an inbound api.
 
 | Param | Type | Description |
