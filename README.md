@@ -1,6 +1,6 @@
 # shoutapi
 
-Node.js module to interact with official [Shoutpoint Api](https://dev-shoutpointapi.devportal.apigee.com)
+Node.js module to interact with official [Shoutpoint Api](https://dev-shoutpointapi.devportal.apigee.com). This is a very early package and is under very active development. The Shoutpoint API is also very fresh and is likely going to change. Don't expect any of the methods or endpoints to be stable.
 
 ```sh
 npm install shoutapi
