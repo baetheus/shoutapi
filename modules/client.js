@@ -14,7 +14,7 @@ var log = new Logger({
   streams: [
     {
       stream: process.stdout,
-      level: 'debug'
+      level: 'info'
     }
   ]
   // Write a bunyan serializer once you've got a grasp on api responses.

@@ -16,7 +16,7 @@ var token = 'YOUR_SHOUTPOINT_API_KEY';
 var client = shoutapi(token).client;
 
 // Output available phone numbers.
-client.available({}, console.log);
+client.available({search_by: 'area-code', search_on: '949'}, console.log);
 
 ```
 
