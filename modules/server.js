@@ -46,7 +46,7 @@ module.exports = function apiServer() {
 
   that.route = function route(req, res, next) {
     log.debug({body: req.body}, 'Received body.');
-    var message = req.body.message,
+    var message = req.body,
         output = {
           message: message,
           req: req,
