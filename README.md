@@ -4,7 +4,7 @@ Node.js module to interact with official [Shoutpoint Api](https://dev-shoutpoint
 npm install shoutapi
 ```
 
-### Client
+## Client
 The shoutapi.client object contains methods for direct use with the Shoutpoint apis: Dials, LiveCalls, LiveIVRs, and PhoneNumbers. Currently, only the PhoneNumbers and parts of the Dials apis have been implemented.
 
 ```js
@@ -20,7 +20,49 @@ client.available({search_by: 'area-code', search_on: '949'}, console.log);
 
 ```
 
-### Events
+### shoutapi.numbers.list(api, callback)
+List numbers attached to api.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| api | <code>String</code> | API to list. ex. LiveIVRs, ParkingLot |
+| callback | <code>Function</code> | Callback function will receive error, response. |
+
+### shoutapi.numbers.available(opts, callback)
+List numbers that are available for use.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| opts | <code>Object</code> | Acceptable options are search_by and search_on. |
+| callback | <code>Function</code> | Callback function will receive error, response. |
+
+### shoutapi.numbers.assign(api, numbers, callback)
+Assign a number to an inbound api.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| api | <code>String</code> | API to list. ex. LiveIVRs, ParkingLot |
+| numbers | <code>String</code> &#124; <code>Array</code> | A phone number presented as a string or an array of numbers presented as strings. |
+| callback | <code>Function</code> | Callback function will receive error, response. |
+
+### shoutapi.numbers.park(numbers, callback)
+Park unassigned numbers for later use.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| numbers | <code>String</code> &#124; <code>Array</code> | A phone number presented as a string or an array of numbers presented as strings. |
+| callback | <code>Function</code> | Callback function will receive error, response. |
+
+### shoutapi.numbers.release(numbers, callback)
+Release numbers from an inbound api.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| api | <code>String</code> | API to list. ex. LiveIVRs, ParkingLot |
+| numbers | <code>String</code> &#124; <code>Array</code> | A phone number presented as a string or an array of numbers presented as strings. |
+| callback | <code>Function</code> | Callback function will receive error, response. |
+
+## Events
 The shoutapi.server object is an event emitter that provides a restify-type route. This route accepts [callback style](https://dev-shoutpointapi.devportal.apigee.com/docs/apis/live-ivrs) messages and emits events for type, status, and regex entries for to_no, from_no, and app_id. Since many events can be emitted for the same message, care should be taken not to duplicate responses.
 
 ```js
